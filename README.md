@@ -34,21 +34,21 @@ IPSec Pre-share Key   | Microsoft123!
 * Setup VNET in Azure <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/VNET.PNG) 
 * Setup Gateway Subnet <br>
-![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWsubnet.PNG)
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWsubnet-1.PNG)
 * Add Gateway Subnet <br>
-![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWSubnet1.PNG)
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWSubnet1-1.PNG)
 * Setup VPN Gateway <br>
 Setup VPN Gateway will use 45 minutes. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GW.PNG)
 * Check VPN Gateway Status<br>
 After the VPN setup, you can check public IP address for IPSec VPN setup. <br>
 139.219.100.216 is Azure VPN gateway public IP address. <br>
-![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWOverview.PNG)
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWOverview1.PNG)
 * Check VPN Gateway BGP Information<br>
 Check VPN gateway configuraion, you will get Azure side BGP ASN and BGP peer information.<br>
 65500 is Azure VPN gateway BGP AS number. <br>
 10.10.1.254 is Azure VPN gateway BGP peer IP address. <br>
-![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWStatus.PNG)
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWStatus1.PNG)
 * Setup Local Network Gateway <br>
 Local gateway represent customer on prem ASA setup. <br>
 65510 is customer ASA BGP AS number. <br>
