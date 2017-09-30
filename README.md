@@ -155,7 +155,9 @@ router bgp 65510
 ```
 
 # Verify IPSec VPN and BGP
-* Azure VPN Status
+* Azure VPN Status <br>
+Powershell command **Get-AzureRmVirtualNetworkGatewayConnection -Name ASA -ResourceGroupName VPN** can check VPN status.
+You can see the ConnectionStatus is **Connected**
 ```
 PS C:\WINDOWS\system32> Get-AzureRmVirtualNetworkGatewayConnection -Name ASA -ResourceGroupName VPN
 
@@ -173,12 +175,14 @@ LocalNetworkGateway2    : "/subscriptions/1ce3bd2d-3193-4af3-8d2a-9b9ef3458277/r
 Peer                    : 
 RoutingWeight           : 0
 SharedKey               : Microsoft123!
-ConnectionStatus        : **Connected**
+ConnectionStatus        : Connected
 EgressBytesTransferred  : 25054
 IngressBytesTransferred : 17388
 TunnelConnectionStatus  : []
 ```
 * Azure BGP Status
+Powershell command **Get-AzureRmVirtualNetworkGatewayBgpPeerStatus -VirtualNetworkGatewayName VPNGW -ResourceGroupName VPN** can check BGP State. <br>
+From the output, BGP State is **Connected**.
 ```
 PS C:\WINDOWS\system32> Get-AzureRmVirtualNetworkGatewayBgpPeerStatus -VirtualNetworkGatewayName VPNGW -ResourceGroupName VPN 
 
@@ -189,9 +193,10 @@ MessagesReceived  : 13
 MessagesSent      : 14
 Neighbor          : 192.168.2.1
 RoutesReceived    : 1
-State             : **Connected**
+State             : Connected
 ```
 * Azure BGP Route Learned from ASA
+Powershell command **Get-AzureRmVirtualNetworkGatewayLearnedRoute -VirtualNetworkGatewayName VPNGW -ResourceGroupName VPN** can check BGP learned route from ASA. <br>
 ```
 PS C:\WINDOWS\system32> Get-AzureRmVirtualNetworkGatewayLearnedRoute -VirtualNetworkGatewayName VPNGW -ResourceGroupName VPN
 
@@ -221,12 +226,14 @@ SourcePeer   : 192.168.2.1
 Weight       : 32768
 ```
 * ASA IKEv2 Status <br>
+ASA CLI command **show crypto ikev2 sa** can check the IKEv2 status. <br>
+From the output, you can see Status is **UP-ACTIVE**. <br>
 ```
 ciscoasa# show crypto ikev2 sa
 
 IKEv2 SAs:
 
-Session-id:54426, Status:**UP-ACTIVE**, IKE count:1, CHILD count:1
+Session-id:54426, Status:UP-ACTIVE, IKE count:1, CHILD count:1
 
 Tunnel-id Local                                               Remote                                                  Status         Role
 180382363 123.121.211.229/4500                                 139.219.100.216/4500                                    **READY**    INITIATOR
@@ -237,6 +244,9 @@ Child sa: local selector  0.0.0.0/0 - 255.255.255.255/65535
           ESP spi in/out: 0x8d2c8231/0xea8a498e
 ```
 * ASA IPSec Status <br>
+Use command **show crypto ipsec sa detail** can check IPSec status. <br>
+From the output, IPSec VPN tunnel have encaps and decaps packets. It means IPSec VPN tunnel setup correctly.<br>
+Both SPI is **Active**
 ```
 ciscoasa# show crypto ipsec sa detail
 interface: vti
@@ -246,8 +256,8 @@ interface: vti
       remote ident (addr/mask/prot/port): (0.0.0.0/0.0.0.0/0/0)
       current_peer: 139.219.100.216
       
-      **#pkts encaps: 37**, #pkts encrypt: 37, #pkts digest: 37
-      **#pkts decaps: 93**, #pkts decrypt: 93, #pkts verify: 93
+      #pkts encaps: 37, #pkts encrypt: 37, #pkts digest: 37
+      #pkts decaps: 93, #pkts decrypt: 93, #pkts verify: 93
       local crypto endpt.: 123.121.211.229/4500, remote crypto endpt.: 139.219.100.216/4500
       path mtu 1500, ipsec overhead 86(52), media mtu 1500
       PMTU time remaining (sec): 0, DF policy: copy-df
@@ -280,6 +290,8 @@ interface: vti
 
 ```
 * ASA BGP Status <br>
+Command **show bgp neighbors** can check ASA BGP status.
+From the output, BGP neighbors is **Established**.
 ```
 ciscoasa# show bgp neighbors
 
@@ -290,7 +302,10 @@ BGP neighbor is 10.10.1.254,  context single_vf,  remote AS 65500, external link
   Neighbor sessions:
     1 active, is not multisession capable (disabled)
 ```
-* ASA BGP Route
+* ASA BGP Route <br>
+Command **show bgp** will display the BGP route. 
+From the output, we can see ASA learn Azure network **10.10.0.0/23** from 10.10.1.254
+
 ```
 ciscoasa# show bgp
 
@@ -304,7 +319,9 @@ Origin codes: i - IGP, e - EGP, ? - incomplete
 *> 192.168.0.0      0.0.0.0              0         32768  i
 r> 192.168.2.1/32   10.10.1.254                        0  65500 i
 ```
-* ASA Route Table
+* ASA Route Table <br>
+Command **show route** will display the ASA route table. 
+From the output, 10.10.0.0/23 already in route table. All traffic go to this subnet will sent to 10.10.1.254.
 ```
 ciscoasa# show route
 
