@@ -153,28 +153,28 @@ router bgp 65510
 
 # Verify IPSec VPN and BGP
 * Azure VPN Status
+```
+PS C:\WINDOWS\system32> Get-AzureRmVirtualNetworkGatewayConnection -Name ASA -ResourceGroupName VPN
 
->PS C:\WINDOWS\system32> Get-AzureRmVirtualNetworkGatewayConnection -Name ASA -ResourceGroupName VPN
-
->Name                    : ASA
->ResourceGroupName       : VPN
->Location                : chinanorth
->ProvisioningState       : Succeeded
->Tags                    : 
->AuthorizationKey        : 
->VirtualNetworkGateway1  : "/subscriptions/1ce3bd2d-3193-4af3-8d2a->9b9ef3458277/resourceGroups/VPN/providers/Microsoft.Network/virtualNetworkGateways/VP
->                          NGW"
->VirtualNetworkGateway2  : 
->LocalNetworkGateway2    : "/subscriptions/1ce3bd2d-3193-4af3-8d2a->9b9ef3458277/resourceGroups/VPN/providers/Microsoft.Network/localNetworkGateways/VPNL
->                          ocalGW"
->Peer                    : 
->RoutingWeight           : 0
->SharedKey               : Microsoft123!
->ConnectionStatus        : **Connected**
->EgressBytesTransferred  : 25054
->IngressBytesTransferred : 17388
->TunnelConnectionStatus  : []
-
+Name                    : ASA
+ResourceGroupName       : VPN
+Location                : chinanorth
+ProvisioningState       : Succeeded
+Tags                    : 
+AuthorizationKey        : 
+VirtualNetworkGateway1  : "/subscriptions/1ce3bd2d-3193-4af3-8d2a-9b9ef3458277/resourceGroups/VPN/providers/Microsoft.Network/virtualNetworkGateways/VP
+                          NGW"
+VirtualNetworkGateway2  : 
+LocalNetworkGateway2    : "/subscriptions/1ce3bd2d-3193-4af3-8d2a-9b9ef3458277/resourceGroups/VPN/providers/Microsoft.Network/localNetworkGateways/VPNL
+                          ocalGW"
+Peer                    : 
+RoutingWeight           : 0
+SharedKey               : Microsoft123!
+ConnectionStatus        : **Connected**
+EgressBytesTransferred  : 25054
+IngressBytesTransferred : 17388
+TunnelConnectionStatus  : []
+```
 * Azure BGP Status
 ```
 PS C:\WINDOWS\system32> Get-AzureRmVirtualNetworkGatewayBgpPeerStatus -VirtualNetworkGatewayName VPNGW -ResourceGroupName VPN 
