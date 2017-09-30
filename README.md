@@ -23,7 +23,7 @@ VPN Gateway Name      | VPNGW
 VPN Tyep              | Route-based
 VPN SKU               | VpnGw1
 Azure BGP ASN         | 65500
-Azure BGP Publip IP   | 139.219.100.216
+Azure BGP Public IP   | 139.219.100.216
 Azure BGP peer IP     | 10.10.1.254
 VPN Local Gateway Name| VPNLocalGW
 On Prem Public IP     | 123.121.211.229
@@ -42,11 +42,11 @@ Setup VPN Gateway will use 45 minutes. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GW.PNG)
 * Check VPN Gateway Status<br>
 After the VPN setup, you can check public IP address for IPSec VPN setup. <br>
+139.219.100.216 is Azure VPN gateway public IP address. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWOverview.PNG)
 * Check VPN Gateway BGP Information<br>
 Check VPN gateway configuraion, you will get Azure side BGP ASN and BGP peer information.<br>
 65500 is Azure VPN gateway BGP AS number. <br>
-139.219.100.216 is Azure VPN gateway public IP address. <br>
 10.10.1.254 is Azure VPN gateway BGP peer IP address. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWStatus.PNG)
 * Setup Local Network Gateway <br>
