@@ -82,6 +82,19 @@ ASA BGP ASN           | 65510
 ASA BGP Peer IP       | 192.168.2.1
 IPSec Pre-share Key   | Microsoft123!
 
+* Setup ASA Interface <br>
+```
+interface GigabitEthernet0/0
+ nameif outside
+ security-level 0
+ ip address 123.121.211.229 255.255.255.0
+!
+interface GigabitEthernet0/1
+ nameif inside
+ security-level 100
+ ip address 192.168.0.1 255.255.255.0
+!
+```
 * Setup IKEv2 Profile <br>
 ```
 crypto ikev2 policy 1
@@ -90,6 +103,7 @@ crypto ikev2 policy 1
  group 2
  prf sha
  lifetime seconds 86400
+crypto ikev2 enable outside
 ```
 * Setup IPSec Profile <br>
 ```
@@ -98,6 +112,13 @@ crypto ipsec ikev2 ipsec-proposal SET1
  protocol esp integrity sha-256
 crypto ipsec profile PROFILE1
  set ikev2 ipsec-proposal SET1
+```
+* Setup IPSec pre-share Key <br?
+```
+tunnel-group 139.219.100.216 type ipsec-l2l
+tunnel-group 139.219.100.216 ipsec-attributes
+ ikev2 remote-authentication pre-shared-key Microsoft123!
+ ikev2 local-authentication pre-shared-key Microsoft123!
 ```
 * Setup VTI <br>
 ```
@@ -108,6 +129,13 @@ interface Tunnel1
  tunnel destination 139.219.100.216
  tunnel mode ipsec ipv4
  tunnel protection ipsec profile PROFILE1
+```
+* Setup Route <br>
+Setup default route to "outside" interface. <br>
+Setup Azure BGP peer traffic to "VTI" interface.
+```
+route outside 0.0.0.0 0.0.0.0 123.121.211.1 1
+route vti 10.10.1.0 255.255.255.0 10.10.1.254 1
 ```
 * Setup BGP <br>
 ```
