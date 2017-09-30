@@ -153,7 +153,70 @@ router bgp 65510
 
 # Verify IPSec VPN and BGP
 * Azure VPN Status
+```
+PS C:\WINDOWS\system32> Get-AzureRmVirtualNetworkGatewayConnection -Name ASA -ResourceGroupName VPN
+
+Name                    : ASA
+ResourceGroupName       : VPN
+Location                : chinanorth
+ProvisioningState       : Succeeded
+Tags                    : 
+AuthorizationKey        : 
+VirtualNetworkGateway1  : "/subscriptions/1ce3bd2d-3193-4af3-8d2a-9b9ef3458277/resourceGroups/VPN/providers/Microsoft.Network/virtualNetworkGateways/VP
+                          NGW"
+VirtualNetworkGateway2  : 
+LocalNetworkGateway2    : "/subscriptions/1ce3bd2d-3193-4af3-8d2a-9b9ef3458277/resourceGroups/VPN/providers/Microsoft.Network/localNetworkGateways/VPNL
+                          ocalGW"
+Peer                    : 
+RoutingWeight           : 0
+SharedKey               : Microsoft123!
+ConnectionStatus        : Connected
+EgressBytesTransferred  : 25054
+IngressBytesTransferred : 17388
+TunnelConnectionStatus  : []
+```
 * Azure BGP Status
+```
+PS C:\WINDOWS\system32> Get-AzureRmVirtualNetworkGatewayBgpPeerStatus -VirtualNetworkGatewayName VPNGW -ResourceGroupName VPN 
+
+Asn               : 65510
+ConnectedDuration : 00:09:52.5820139
+LocalAddress      : 10.10.1.254
+MessagesReceived  : 13
+MessagesSent      : 14
+Neighbor          : 192.168.2.1
+RoutesReceived    : 1
+State             : Connected
+```
+* Azure BGP Route Learned from ASA
+```
+PS C:\WINDOWS\system32> Get-AzureRmVirtualNetworkGatewayLearnedRoute -VirtualNetworkGatewayName VPNGW -ResourceGroupName VPN
+
+
+AsPath       : 
+LocalAddress : 10.10.1.254
+Network      : 10.10.0.0/23
+NextHop      : 
+Origin       : Network
+SourcePeer   : 10.10.1.254
+Weight       : 32768
+
+AsPath       : 
+LocalAddress : 10.10.1.254
+Network      : 192.168.2.1/32
+NextHop      : 
+Origin       : Network
+SourcePeer   : 10.10.1.254
+Weight       : 32768
+
+AsPath       : 65510
+LocalAddress : 10.10.1.254
+Network      : 192.168.0.0/24
+NextHop      : 192.168.2.1
+Origin       : EBgp
+SourcePeer   : 192.168.2.1
+Weight       : 32768
+```
 * ASA IKEv2 Status <br>
 ```
 ciscoasa# show crypto ikev2 sa
