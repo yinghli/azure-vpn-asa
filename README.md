@@ -7,7 +7,7 @@ This feature allow setup BGP neighbor on top of IPSec tunnel with IKEv2. <br>
 This documentation will desctrip how to setup IPSec VPN with Azure VPN gateway using BGP. <br>
 
 # Azure VPN Setup 
-In this doc, we will use Azure Portal to setup all vpn steps. Powershell and Azure CLI can do the same setup. <br>
+In Azure side, we will use Azure Portal to setup all vpn steps. Powershell and Azure CLI can do the same setup. <br>
 We will use below parameters to setup. <br>
 
 Parameters            | Values
@@ -62,6 +62,25 @@ Setup IPSec VPN on Azure site, pre share key password must be same as customer o
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/ConnectionBGP.PNG)
 
 # Cisco ASA Setup
+In Cisco ASA side, we will use CLI setup all vpn steps. <br>
+We will use below parameters to setup. <br>
+Parameters            | Values
+----------------------| -------------
+IKEv2 policy          | 1
+IKEv2 encryption      | aes-256 aes-192 aes
+IKEv2 integrity       | sha256 sha
+DH group              | 2
+PRF                   | sha
+IKEv2 IPSec proposal  | SET1
+IPSec protocol        | ESP
+IPSec encryption      | aes-256 aes-192 aes
+IPSec integrity       | sha-256
+IPSec profile         | PROFILE1
+ASA Public IP         | 123.121.211.229
+ASA BGP ASN           | 65510
+ASA BGP Peer IP       | 192.168.2.1
+IPSec Pre-share Key   | Microsoft123!
+
 * Setup IKEv2 Profile 
 * Setup IPSec Profile
 * Setup VTI
