@@ -113,7 +113,7 @@ crypto ipsec ikev2 ipsec-proposal SET1
 crypto ipsec profile PROFILE1
  set ikev2 ipsec-proposal SET1
 ```
-* Setup IPSec pre-share Key <br?
+* Setup IPSec pre-share Key <br>
 ```
 tunnel-group 139.219.100.216 type ipsec-l2l
 tunnel-group 139.219.100.216 ipsec-attributes
@@ -170,7 +170,7 @@ LocalNetworkGateway2    : "/subscriptions/1ce3bd2d-3193-4af3-8d2a-9b9ef3458277/r
 Peer                    : 
 RoutingWeight           : 0
 SharedKey               : Microsoft123!
-ConnectionStatus        : Connected
+ConnectionStatus        : **Connected**
 EgressBytesTransferred  : 25054
 IngressBytesTransferred : 17388
 TunnelConnectionStatus  : []
@@ -186,7 +186,7 @@ MessagesReceived  : 13
 MessagesSent      : 14
 Neighbor          : 192.168.2.1
 RoutesReceived    : 1
-State             : Connected
+State             : **Connected**
 ```
 * Azure BGP Route Learned from ASA
 ```
@@ -223,10 +223,10 @@ ciscoasa# show crypto ikev2 sa
 
 IKEv2 SAs:
 
-Session-id:54426, Status:UP-ACTIVE, IKE count:1, CHILD count:1
+Session-id:54426, Status:**UP-ACTIVE**, IKE count:1, CHILD count:1
 
 Tunnel-id Local                                               Remote                                                  Status         Role
-180382363 123.121.211.229/4500                                 139.219.100.216/4500                                     READY    INITIATOR
+180382363 123.121.211.229/4500                                 139.219.100.216/4500                                    **READY**    INITIATOR
       Encr: AES-CBC, keysize: 256, Hash: SHA96, DH Grp:2, Auth sign: PSK, Auth verify: PSK
       Life/Active Time: 86400/415 sec
 Child sa: local selector  0.0.0.0/0 - 255.255.255.255/65535
@@ -243,8 +243,8 @@ interface: vti
       remote ident (addr/mask/prot/port): (0.0.0.0/0.0.0.0/0/0)
       current_peer: 139.219.100.216
       
-      #pkts encaps: 37, #pkts encrypt: 37, #pkts digest: 37
-      #pkts decaps: 93, #pkts decrypt: 93, #pkts verify: 93
+      **#pkts encaps: 37**, #pkts encrypt: 37, #pkts digest: 37
+      **#pkts decaps: 93**, #pkts decrypt: 93, #pkts verify: 93
       local crypto endpt.: 123.121.211.229/4500, remote crypto endpt.: 139.219.100.216/4500
       path mtu 1500, ipsec overhead 86(52), media mtu 1500
       PMTU time remaining (sec): 0, DF policy: copy-df
