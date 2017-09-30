@@ -156,8 +156,8 @@ router bgp 65510
 
 # Verify IPSec VPN and BGP
 * Azure VPN Status <br>
-Powershell command **Get-AzureRmVirtualNetworkGatewayConnection -Name ASA -ResourceGroupName VPN** can check VPN status.
-You can see the ConnectionStatus is **Connected**
+Powershell command **Get-AzureRmVirtualNetworkGatewayConnection -Name ASA -ResourceGroupName VPN** can check VPN status.<br>
+You can see the ConnectionStatus is **Connected**<br>
 ```
 PS C:\WINDOWS\system32> Get-AzureRmVirtualNetworkGatewayConnection -Name ASA -ResourceGroupName VPN
 
@@ -182,7 +182,7 @@ TunnelConnectionStatus  : []
 ```
 * Azure BGP Status
 Powershell command **Get-AzureRmVirtualNetworkGatewayBgpPeerStatus -VirtualNetworkGatewayName VPNGW -ResourceGroupName VPN** can check BGP State. <br>
-From the output, BGP State is **Connected**.
+From the output, BGP State is **Connected**. <br>
 ```
 PS C:\WINDOWS\system32> Get-AzureRmVirtualNetworkGatewayBgpPeerStatus -VirtualNetworkGatewayName VPNGW -ResourceGroupName VPN 
 
@@ -246,7 +246,7 @@ Child sa: local selector  0.0.0.0/0 - 255.255.255.255/65535
 * ASA IPSec Status <br>
 Use command **show crypto ipsec sa detail** can check IPSec status. <br>
 From the output, IPSec VPN tunnel have encaps and decaps packets. It means IPSec VPN tunnel setup correctly.<br>
-Both SPI is **Active**
+Both SPI is **Active** <br>
 ```
 ciscoasa# show crypto ipsec sa detail
 interface: vti
@@ -290,8 +290,8 @@ interface: vti
 
 ```
 * ASA BGP Status <br>
-Command **show bgp neighbors** can check ASA BGP status.
-From the output, BGP neighbors is **Established**.
+Command **show bgp neighbors** can check ASA BGP status. <br>
+From the output, BGP neighbors is **Established**.<br>
 ```
 ciscoasa# show bgp neighbors
 
@@ -303,8 +303,8 @@ BGP neighbor is 10.10.1.254,  context single_vf,  remote AS 65500, external link
     1 active, is not multisession capable (disabled)
 ```
 * ASA BGP Route <br>
-Command **show bgp** will display the BGP route. 
-From the output, we can see ASA learn Azure network **10.10.0.0/23** from 10.10.1.254
+Command **show bgp** will display the BGP route. <br>
+From the output, we can see ASA learn Azure network **10.10.0.0/23** from 10.10.1.254<br>
 
 ```
 ciscoasa# show bgp
@@ -320,8 +320,8 @@ Origin codes: i - IGP, e - EGP, ? - incomplete
 r> 192.168.2.1/32   10.10.1.254                        0  65500 i
 ```
 * ASA Route Table <br>
-Command **show route** will display the ASA route table. 
-From the output, 10.10.0.0/23 already in route table. All traffic go to this subnet will sent to 10.10.1.254.
+Command **show route** will display the ASA route table. <br>
+From the output, 10.10.0.0/23 already in route table. All traffic go to this subnet will sent to 10.10.1.254.<br>
 ```
 ciscoasa# show route
 
