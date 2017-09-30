@@ -7,7 +7,7 @@ This documentation will describe how to setup IPSec VPN with Azure VPN gateway u
 
 Table of Contents
 ----------------------------------------
-[TOC]
+[toc]
 
 Topology
 ----------------------------------------
