@@ -7,11 +7,19 @@ This feature allow setup BGP neighbor on top of IPSec tunnel with IKEv2. <br>
 This documentation will desctrip how to setup IPSec VPN with Azure VPN gateway using BGP. <br>
 
 # Azure VPN Setup 
+In this doc, we will use Azure Portal to setup all vpn steps. Powershell and Azure CLI can do the same setup. <br>
 * Setup VNET in Azure
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/VNET.PNG) 
 * Setup Gateway Subnet
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWsubnet.PNG)
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWSubnet1.PNG)
 * Setup VPN Gateway
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/GW.PNG)
 * Setup Local Network Gateway
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/LocalGW.PNG)
 * Setup Connection
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/Connection.PNG)
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/ConnectionBGP.PNG)
 
 # Cisco ASA Setup
 * Setup IKEv2 Profile 
