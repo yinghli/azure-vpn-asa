@@ -82,10 +82,46 @@ ASA BGP ASN           | 65510
 ASA BGP Peer IP       | 192.168.2.1
 IPSec Pre-share Key   | Microsoft123!
 
-* Setup IKEv2 Profile 
-* Setup IPSec Profile
-* Setup VTI
-* Setup BGP
+* Setup IKEv2 Profile <br>
+```
+crypto ikev2 policy 1
+ encryption aes-256 aes-192 aes
+ integrity sha256 sha
+ group 2
+ prf sha
+ lifetime seconds 86400
+```
+* Setup IPSec Profile <br>
+```
+crypto ipsec ikev2 ipsec-proposal SET1
+ protocol esp encryption aes-256 aes-192 aes
+ protocol esp integrity sha-256
+crypto ipsec profile PROFILE1
+ set ikev2 ipsec-proposal SET1
+```
+* Setup VTI <br>
+```
+interface Tunnel1
+ nameif vti
+ ip address 192.168.2.1 255.255.255.0
+ tunnel source interface outside
+ tunnel destination 139.219.100.216
+ tunnel mode ipsec ipv4
+ tunnel protection ipsec profile PROFILE1
+```
+* Setup BGP <br>
+```
+router bgp 65510
+ bgp log-neighbor-changes
+ address-family ipv4 unicast
+  neighbor 10.10.1.254 remote-as 65500
+  neighbor 10.10.1.254 ebgp-multihop 2
+  neighbor 10.10.1.254 activate
+  network 192.168.0.0
+  no auto-summary
+  no synchronization
+ exit-address-family
+```
 
 # Verify IPSec VPN and BGP
 * Azure VPN Status
