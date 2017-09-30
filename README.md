@@ -1,7 +1,7 @@
 Azure IPSec VPN with Cisco ASA using BGP
 ==========================================
 Cisco ASA software version 9.8 support Virtual Tunnel Interface (VTI) with BGP (static VTI). <br>
-https://www.cisco.com/c/en/us/td/docs/security/asa/asa98/release/notes/asarn98.html#reference_s3l_4v2_gy <br>
+You can check the [release notes](https://www.cisco.com/c/en/us/td/docs/security/asa/asa98/release/notes/asarn98.html#reference_s3l_4v2_gy) <br>
 This feature allows setup BGP neighbor on top of IPSec tunnel with IKEv2. <br>
 This documentation will describe how to setup IPSec VPN with Azure VPN gateway using BGP. <br>
 
@@ -35,8 +35,8 @@ On Premise BGP ASN    | 65510
 On Premise BGP Peer IP| 192.168.2.1
 IPSec Pre-share Key   | Microsoft123!
 
-> **Note:** In IKEv2 and IPSec parameters setup, we will use Azure default values. If you want to setup customized values, please check below https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-ipsecikepolicy-rm-powershell <br>
-> **Note:** Azure VPN gateway cryptographic can be found here. https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-compliance-crypto
+> **Note:** In IKEv2 and IPSec parameters setup, we will use Azure default values. If you want to setup customized values, please check [here](https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-ipsecikepolicy-rm-powershell) <br>
+> **Note:** Azure VPN gateway cryptographic can be found [here](https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-compliance-crypto)
 
 ## Setup VNET in Azure <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/VNET.PNG) 
