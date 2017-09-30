@@ -35,6 +35,9 @@ On Premise BGP ASN    | 65510
 On Premise BGP Peer IP| 192.168.2.1
 IPSec Pre-share Key   | Microsoft123!
 
+> **Note:** In IKEv2 and IPSec parameters setup, we will use Azure default values. If you want to setup customized values, please check below https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-ipsecikepolicy-rm-powershell <br>
+> **Note:** Azure VPN gateway cryptographic can be found here. https://docs.microsoft.com/en-us/azure/vpn-gateway/vpn-gateway-about-compliance-crypto
+
 ## Setup VNET in Azure <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/VNET.PNG) 
 ## Setup Gateway Subnet <br>
