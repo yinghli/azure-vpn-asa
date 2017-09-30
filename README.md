@@ -8,24 +8,28 @@ This documentation will desctrip how to setup IPSec VPN with Azure VPN gateway u
 
 # Azure VPN Setup 
 In this doc, we will use Azure Portal to setup all vpn steps. Powershell and Azure CLI can do the same setup. <br>
-We will use below parameters to setup.
-VNET Name: AzureVNET
-Address Space: 10.10.0.0/23
-Resource Group: VPN
-Location: China North
-Subnet: AzureSubnet
-Address Range: 10.10.0.0/24
-GatewaySubnet: 10.10.1.0/24
-VPN Gateway Name: VPNGW
-VPN Tyep: Route-based
-VPN SKU: VpnGw1
-Azure BGP ASN: 65500
-Azure BGP Publip IP: 139.219.100.216
-Azure BGP peer IP: 10.10.1.254
-VPN Local Gateway Name: VPNLocalGW
-On Prem Public IP: 123.121.211.229
-On Prem BGP ASN: 65510
-On Prem BGP Peer IP: 192.168.2.1
+We will use below parameters to setup. <br>
+
+Parameters            | Values
+----------------------| -------------
+VNET Name             | AzureVNET
+Address Space         | 10.10.0.0/23
+Resource Group        | VPN
+Location              | China North
+Subnet                | AzureSubnet
+Address Range         | 10.10.0.0/24
+GatewaySubnet         | 10.10.1.0/24
+VPN Gateway Name      | VPNGW
+VPN Tyep              | Route-based
+VPN SKU               | VpnGw1
+Azure BGP ASN         | 65500
+Azure BGP Publip IP   | 139.219.100.216
+Azure BGP peer IP     | 10.10.1.254
+VPN Local Gateway Name| VPNLocalGW
+On Prem Public IP     | 123.121.211.229
+On Prem BGP ASN       | 65510
+On Prem BGP Peer IP   | 192.168.2.1
+
 * Setup VNET in Azure <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/VNET.PNG) 
 * Setup Gateway Subnet <br>
