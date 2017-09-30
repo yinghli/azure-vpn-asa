@@ -1,6 +1,4 @@
 # Azure IPSec VPN with Cisco ASA using BGP
-===========================================
-Setup VPN between Azure and Cisco ASA with BGP
 
 Cisco ASA software version 9.8 support Virtual Tunnel Interface (VTI) with BGP (static VTI). <br>
 https://www.cisco.com/c/en/us/td/docs/security/asa/asa98/release/notes/asarn98.html#reference_s3l_4v2_gy <br>
