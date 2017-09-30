@@ -1,15 +1,22 @@
 # Azure IPSec VPN with Cisco ASA using BGP
+===========================================
 Setup VPN between Azure and Cisco ASA with BGP
 
 Cisco ASA software version 9.8 support Virtual Tunnel Interface (VTI) with BGP (static VTI). <br>
 https://www.cisco.com/c/en/us/td/docs/security/asa/asa98/release/notes/asarn98.html#reference_s3l_4v2_gy <br>
 This feature allows setup BGP neighbor on top of IPSec tunnel with IKEv2. <br>
 This documentation will describe how to setup IPSec VPN with Azure VPN gateway using BGP. <br>
+-----------------------
+
+# Table of Contents
+[TOC]
 
 # Topology
+--------------------
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/ASA9.8.png)
 
 # Azure VPN Setup 
+---------------------
 In Azure side, we will use Azure Portal to setup all vpn configuration. PowerShell and Azure CLI can do the same setup. <br>
 We will use below parameters to setup. <br>
 
@@ -34,37 +41,38 @@ On Premise BGP ASN    | 65510
 On Premise BGP Peer IP| 192.168.2.1
 IPSec Pre-share Key   | Microsoft123!
 
-* Setup VNET in Azure <br>
+## Setup VNET in Azure <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/VNET.PNG) 
-* Setup Gateway Subnet <br>
+## Setup Gateway Subnet <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWsubnet-1.png)
-* Add Gateway Subnet <br>
+## Add Gateway Subnet <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWSubnet1-1.PNG)
-* Setup VPN Gateway <br>
+## Setup VPN Gateway <br>
 Setup VPN Gateway will use 45 minutes. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GW.PNG)
-* Check VPN Gateway Status<br>
+## Check VPN Gateway Status<br>
 After the VPN setup, you can check public IP address for IPSec VPN setup. <br>
 139.219.100.216 is Azure VPN gateway public IP address. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWOverview1.PNG)
-* Check VPN Gateway BGP Information<br>
+## Check VPN Gateway BGP Information<br>
 Check VPN gateway configuration, you will get Azure side BGP ASN and BGP peer information.<br>
 65500 is Azure VPN gateway BGP AS number. <br>
 10.10.1.254 is Azure VPN gateway BGP peer IP address. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWStatus1.png)
-* Setup Local Network Gateway <br>
+## Setup Local Network Gateway <br>
 Local gateway represent customer on prem ASA setup. <br>
 65510 is customer ASA BGP AS number. <br>
 123.121.211.229 is customer ASA public IP address. <br>
 192.168.2.1 is customer ASA BGP peer IP address, this is VTI address. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/LocalGW1.png)
-* Setup Connection <br>
+## Setup Connection <br>
 Setup IPSec VPN on Azure site, pre-share key password must be same as customer on premise ASA. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/Connection.PNG)
-* Enable Connection BGP <br>
+## Enable Connection BGP <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/ConnectionBGP.PNG)
 
 # Cisco ASA Setup
+--------------------
 In Cisco ASA side, we will use CLI setup all vpn configuration. <br>
 We will use below parameters to setup. <br>
 
@@ -85,7 +93,7 @@ ASA BGP ASN           | 65510
 ASA BGP Peer IP       | 192.168.2.1
 IPSec Pre-share Key   | Microsoft123!
 
-* Setup ASA Interface <br>
+## Setup ASA Interface <br>
 ```
 interface GigabitEthernet0/0
  nameif outside
@@ -98,7 +106,7 @@ interface GigabitEthernet0/1
  ip address 192.168.0.1 255.255.255.0
 !
 ```
-* Setup IKEv2 Profile <br>
+## Setup IKEv2 Profile <br>
 ```
 crypto ikev2 policy 1
  encryption aes-256 aes-192 aes
@@ -108,7 +116,7 @@ crypto ikev2 policy 1
  lifetime seconds 86400
 crypto ikev2 enable outside
 ```
-* Setup IPSec Profile <br>
+## Setup IPSec Profile <br>
 ```
 crypto ipsec ikev2 ipsec-proposal SET1
  protocol esp encryption aes-256 aes-192 aes
@@ -116,14 +124,14 @@ crypto ipsec ikev2 ipsec-proposal SET1
 crypto ipsec profile PROFILE1
  set ikev2 ipsec-proposal SET1
 ```
-* Setup IPSec pre-share Key <br>
+## Setup IPSec pre-share Key <br>
 ```
 tunnel-group 139.219.100.216 type ipsec-l2l
 tunnel-group 139.219.100.216 ipsec-attributes
  ikev2 remote-authentication pre-shared-key Microsoft123!
  ikev2 local-authentication pre-shared-key Microsoft123!
 ```
-* Setup VTI <br>
+## Setup VTI <br>
 ```
 interface Tunnel1
  nameif vti
@@ -133,14 +141,14 @@ interface Tunnel1
  tunnel mode ipsec ipv4
  tunnel protection ipsec profile PROFILE1
 ```
-* Setup Route <br>
+## Setup Route <br>
 Setup default route to "outside" interface. <br>
 Setup Azure BGP peer traffic to "VTI" interface.
 ```
 route outside 0.0.0.0 0.0.0.0 123.121.211.1 1
 route vti 10.10.1.0 255.255.255.0 10.10.1.254 1
 ```
-* Setup BGP <br>
+## Setup BGP <br>
 ```
 router bgp 65510
  bgp log-neighbor-changes
@@ -155,7 +163,8 @@ router bgp 65510
 ```
 
 # Verify IPSec VPN and BGP
-* Azure VPN Status <br>
+------------------------------
+## Azure VPN Status <br>
 Powershell command **Get-AzureRmVirtualNetworkGatewayConnection -Name ASA -ResourceGroupName VPN** can check VPN status.<br>
 You can see the ConnectionStatus is **Connected**<br>
 ```
@@ -180,7 +189,7 @@ EgressBytesTransferred  : 25054
 IngressBytesTransferred : 17388
 TunnelConnectionStatus  : []
 ```
-* Azure BGP Status
+## Azure BGP Status
 Powershell command **Get-AzureRmVirtualNetworkGatewayBgpPeerStatus -VirtualNetworkGatewayName VPNGW -ResourceGroupName VPN** can check BGP State. <br>
 From the output, BGP State is **Connected**. <br>
 ```
@@ -195,7 +204,7 @@ Neighbor          : 192.168.2.1
 RoutesReceived    : 1
 State             : Connected
 ```
-* Azure BGP Route Learned from ASA
+## Azure BGP Route Learned from ASA
 Powershell command **Get-AzureRmVirtualNetworkGatewayLearnedRoute -VirtualNetworkGatewayName VPNGW -ResourceGroupName VPN** can check BGP learned route from ASA. <br>
 ```
 PS C:\WINDOWS\system32> Get-AzureRmVirtualNetworkGatewayLearnedRoute -VirtualNetworkGatewayName VPNGW -ResourceGroupName VPN
@@ -225,7 +234,7 @@ Origin       : EBgp
 SourcePeer   : 192.168.2.1
 Weight       : 32768
 ```
-* ASA IKEv2 Status <br>
+## ASA IKEv2 Status <br>
 ASA CLI command **show crypto ikev2 sa** can check the IKEv2 status. <br>
 From the output, you can see Status is **UP-ACTIVE**. <br>
 ```
@@ -243,7 +252,7 @@ Child sa: local selector  0.0.0.0/0 - 255.255.255.255/65535
           remote selector 0.0.0.0/0 - 255.255.255.255/65535
           ESP spi in/out: 0x8d2c8231/0xea8a498e
 ```
-* ASA IPSec Status <br>
+## ASA IPSec Status <br>
 Use command **show crypto ipsec sa detail** can check IPSec status. <br>
 From the output, IPSec VPN tunnel have encaps and decaps packets. It means IPSec VPN tunnel setup correctly.<br>
 Both SPI is **Active** <br>
@@ -289,7 +298,7 @@ interface: vti
           0x00000000 0x00000001
 
 ```
-* ASA BGP Status <br>
+## ASA BGP Status <br>
 Command **show bgp neighbors** can check ASA BGP status. <br>
 From the output, BGP neighbors is **Established**.<br>
 ```
@@ -319,7 +328,7 @@ Origin codes: i - IGP, e - EGP, ? - incomplete
 *> 192.168.0.0      0.0.0.0              0         32768  i
 r> 192.168.2.1/32   10.10.1.254                        0  65500 i
 ```
-* ASA Route Table <br>
+## ASA Route Table <br>
 Command **show route** will display the ASA route table. <br>
 From the output, 10.10.0.0/23 already in route table. All traffic go to this subnet will sent to 10.10.1.254.<br>
 ```
