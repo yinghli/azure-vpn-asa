@@ -154,5 +154,110 @@ router bgp 65510
 # Verify IPSec VPN and BGP
 * Azure VPN Status
 * Azure BGP Status
-* ASA VPN Status
-* ASA BGP Status
+* ASA IKEv2 Status <br>
+```
+ciscoasa# show crypto ikev2 sa
+
+IKEv2 SAs:
+
+Session-id:54426, Status:UP-ACTIVE, IKE count:1, CHILD count:1
+
+Tunnel-id Local                                               Remote                                                  Status         Role
+180382363 123.121.211.229/4500                                 139.219.100.216/4500                                     READY    INITIATOR
+      Encr: AES-CBC, keysize: 256, Hash: SHA96, DH Grp:2, Auth sign: PSK, Auth verify: PSK
+      Life/Active Time: 86400/415 sec
+Child sa: local selector  0.0.0.0/0 - 255.255.255.255/65535
+          remote selector 0.0.0.0/0 - 255.255.255.255/65535
+          ESP spi in/out: 0x8d2c8231/0xea8a498e
+```
+* ASA IPSec Status <br>
+```
+ciscoasa# show crypto ipsec sa detail
+interface: vti
+    Crypto map tag: __vti-crypto-map-4-0-1, seq num: 65280, local addr: 123.121.211.229
+
+      local ident (addr/mask/prot/port): (0.0.0.0/0.0.0.0/0/0)
+      remote ident (addr/mask/prot/port): (0.0.0.0/0.0.0.0/0/0)
+      current_peer: 139.219.100.216
+      
+      #pkts encaps: 37, #pkts encrypt: 37, #pkts digest: 37
+      #pkts decaps: 93, #pkts decrypt: 93, #pkts verify: 93
+      local crypto endpt.: 123.121.211.229/4500, remote crypto endpt.: 139.219.100.216/4500
+      path mtu 1500, ipsec overhead 86(52), media mtu 1500
+      PMTU time remaining (sec): 0, DF policy: copy-df
+      ICMP error validation: disabled, TFC packets: disabled
+      current outbound spi: EA8A498E
+      current inbound spi : 8D2C8231
+
+    inbound esp sas:
+      spi: 0x8D2C8231 (2368504369)
+         SA State: active
+         transform: esp-aes-256 esp-sha-256-hmac no compression
+         in use settings ={L2L, Tunnel,  NAT-T-Encaps, IKEv2, VTI, }
+         slot: 0, conn_id: 222928896, crypto-map: __vti-crypto-map-4-0-1
+         sa timing: remaining key lifetime (kB/sec): (4055035/28244)
+         IV size: 16 bytes
+         replay detection support: Y
+         Anti replay bitmap:
+          0xFFFFFFFF 0xFFFFFFFF
+    outbound esp sas:
+      spi: 0xEA8A498E (3934931342)
+         SA State: active
+         transform: esp-aes-256 esp-sha-256-hmac no compression
+         in use settings ={L2L, Tunnel,  NAT-T-Encaps, IKEv2, VTI, }
+         slot: 0, conn_id: 222928896, crypto-map: __vti-crypto-map-4-0-1
+         sa timing: remaining key lifetime (kB/sec): (4008958/28242)
+         IV size: 16 bytes
+         replay detection support: Y
+         Anti replay bitmap:
+          0x00000000 0x00000001
+
+```
+* ASA BGP Status <br>
+```
+ciscoasa# show bgp neighbors
+
+BGP neighbor is 10.10.1.254,  context single_vf,  remote AS 65500, external link
+  BGP version 4, remote router ID 10.10.1.254
+  BGP state = Established, up for 00:04:14
+  Last read 00:00:46, last write 00:00:54, hold time is 180, keepalive interval is 60 seconds
+  Neighbor sessions:
+    1 active, is not multisession capable (disabled)
+```
+* ASA BGP Route
+```
+ciscoasa# show bgp
+
+BGP table version is 5, local router ID is 192.168.2.1
+Status codes: s suppressed, d damped, h history, * valid, > best, i - internal,
+              r RIB-failure, S Stale, m multipath
+Origin codes: i - IGP, e - EGP, ? - incomplete
+
+   Network          Next Hop        Metric LocPrf Weight  Path
+*> 10.10.0.0/23     10.10.1.254                        0  65500 i
+*> 192.168.0.0      0.0.0.0              0         32768  i
+r> 192.168.2.1/32   10.10.1.254                        0  65500 i
+```
+* ASA Route Table
+```
+ciscoasa# show route
+
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, V - VPN
+       i - IS-IS, su - IS-IS summary, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, * - candidate default, U - per-user static route
+       o - ODR, P - periodic downloaded static route, + - replicated route
+Gateway of last resort is 123.121.211.1 to network 0.0.0.0
+
+S*       0.0.0.0 0.0.0.0 [1/0] via 123.121.211.1, outside
+B        10.10.0.0 255.255.254.0 [20/0] via 10.10.1.254, 00:04:08
+S        10.10.1.0 255.255.255.0 [1/0] via 10.10.1.254, vti
+C        192.168.0.0 255.255.255.0 is directly connected, inside
+L        192.168.0.1 255.255.255.255 is directly connected, inside
+C        192.168.2.0 255.255.255.0 is directly connected, vti
+L        192.168.2.1 255.255.255.255 is directly connected, vti
+C        123.121.211.0 255.255.255.0 is directly connected, outside
+L        123.121.211.229 255.255.255.255 is directly connected, outside
+```
