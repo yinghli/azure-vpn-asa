@@ -5,12 +5,16 @@ https://www.cisco.com/c/en/us/td/docs/security/asa/asa98/release/notes/asarn98.h
 This feature allows setup BGP neighbor on top of IPSec tunnel with IKEv2. <br>
 This documentation will describe how to setup IPSec VPN with Azure VPN gateway using BGP. <br>
 
+Table of Contents
+----------------------------------------
+[TOC]
+
 Topology
-==========================================
+----------------------------------------
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/ASA9.8.png)
 
 Azure VPN Setup 
-==========================================
+----------------------------------------
 In Azure side, we will use Azure Portal to setup all vpn configuration. PowerShell and Azure CLI can do the same setup. <br>
 We will use below parameters to setup. <br>
 
@@ -66,7 +70,7 @@ Setup IPSec VPN on Azure site, pre-share key password must be same as customer o
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/ConnectionBGP.PNG)
 
 Cisco ASA Setup
-==========================================
+----------------------------------------
 In Cisco ASA side, we will use CLI setup all vpn configuration. <br>
 We will use below parameters to setup. <br>
 
@@ -157,7 +161,7 @@ router bgp 65510
 ```
 
 Verify IPSec VPN and BGP
-==========================================
+----------------------------------------
 ## Azure VPN Status <br>
 Powershell command **Get-AzureRmVirtualNetworkGatewayConnection -Name ASA -ResourceGroupName VPN** can check VPN status.<br>
 You can see the ConnectionStatus is **Connected**<br>
