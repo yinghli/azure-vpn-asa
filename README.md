@@ -45,13 +45,16 @@ After the VPN setup, you can check public IP address for IPSec VPN setup. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWOverview.PNG)
 * Check VPN Gateway BGP Information<br>
 Check VPN gateway configuraion, you will get Azure side BGP ASN and BGP peer information.<br>
+65500 is Azure VPN gateway BGP AS number. <br>
+139.219.100.216 is Azure VPN gateway public IP address. <br>
+10.10.1.254 is Azure VPN gateway BGP peer IP address. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWStatus.PNG)
 * Setup Local Network Gateway <br>
 Local gateway represent customer on prem ASA setup. <br>
+65510 is customer ASA BGP AS number. <br>
+123.121.211.229 is customer ASA public IP address. <br>
+192.168.2.1 is cusotmer ASA BGP peer IP address, this is VTI address. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/LocalGW.PNG)
-* Check VPN Local Gateway Status<br>
-Local gateway configuration should be same as customer on prem ASA BGP configutaion. <br>
-![](https://github.com/yinghli/azure-vpn-asa/blob/master/LocalGWStatus.PNG)
 * Setup Connection <br>
 Setup IPSec VPN on Azure site, pre share key password must be same as customer on prem ASA. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/Connection.PNG)
