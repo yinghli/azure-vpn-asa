@@ -34,13 +34,21 @@ On Prem BGP Peer IP   | 192.168.2.1
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/VNET.PNG) 
 * Setup Gateway Subnet <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWsubnet.PNG)
+* Add Gateway Subnet <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWSubnet1.PNG)
 * Setup VPN Gateway <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GW.PNG)
+* Check VPN Gateway Status<br>
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWOverview.PNG)
+* Check VPN Gateway BGP Information<br>
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWStatus.PNG)
 * Setup Local Network Gateway <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/LocalGW.PNG)
+* Check VPN Local Gateway Status<br>
+![](https://github.com/yinghli/azure-vpn-asa/blob/master/LocalGWStatus.PNG)
 * Setup Connection <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/Connection.PNG)
+* Enable Connection BGP <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/ConnectionBGP.PNG)
 
 # Cisco ASA Setup
