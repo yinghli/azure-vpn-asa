@@ -38,16 +38,22 @@ IPSec Pre-share Key   | Microsoft123!
 * Add Gateway Subnet <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWSubnet1.PNG)
 * Setup VPN Gateway <br>
+Setup VPN Gateway will use 45 minutes. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GW.PNG)
 * Check VPN Gateway Status<br>
+After the VPN setup, you can check public IP address for IPSec VPN setup. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWOverview.PNG)
 * Check VPN Gateway BGP Information<br>
+Check VPN gateway configuraion, you will get Azure side BGP ASN and BGP peer information.<br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/GWStatus.PNG)
 * Setup Local Network Gateway <br>
+Local gateway represent customer on prem ASA setup. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/LocalGW.PNG)
 * Check VPN Local Gateway Status<br>
+Local gateway configuration should be same as customer on prem ASA BGP configutaion. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/LocalGWStatus.PNG)
 * Setup Connection <br>
+Setup IPSec VPN on Azure site, pre share key password must be same as customer on prem ASA. <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/Connection.PNG)
 * Enable Connection BGP <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/ConnectionBGP.PNG)
