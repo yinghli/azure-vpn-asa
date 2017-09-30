@@ -29,6 +29,7 @@ VPN Local Gateway Name| VPNLocalGW
 On Prem Public IP     | 123.121.211.229
 On Prem BGP ASN       | 65510
 On Prem BGP Peer IP   | 192.168.2.1
+IPSec Pre-share Key   | Microsoft123!
 
 * Setup VNET in Azure <br>
 ![](https://github.com/yinghli/azure-vpn-asa/blob/master/VNET.PNG) 
